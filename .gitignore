@@ -1,0 +1,31 @@
+.pio
+
+# PlatformIO and build artifacts
+.pioenvs/
+.clangd/
+.cache/
+
+# VS Code settings and generated files
+.vscode/.browse.c_cpp.db*
+.vscode/c_cpp_properties.json
+.vscode/launch.json
+.vscode/ipch
+.vscode/settings.json
+
+# Firmware and compiled output
+*.bin
+*.elf
+*.hex
+*.map
+*.uf2
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary and backup files
+*.log
+*.tmp
+*.swp
+*~
