@@ -3,13 +3,15 @@ import sys
 import os
 import msvcrt
 import subprocess
+import platform
 
-# lines 8-12 wrote by AI
-# Dodajemy ścieżkę do folderu 'Python', przechodząc o 3 poziomy w górę z folderu 'src'
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), './../Code/Python')))
 
-# Teraz importujemy funkcję z pliku CoolFrame.py wewnątrz tego katalogu
-from CoolFrame.CoolFrame import frameAnimation
+def frameAnimation(message, frames=4, speed=0.05):
+    for frame in ["|", "/", "-", "\\"] * frames:
+        subprocess.call('cls' if platform.system() == "Windows" else 'clear', shell=True)
+        print(f"{message}: {frame}")
+        time.sleep(speed)
+    subprocess.call('cls' if platform.system() == "Windows" else 'clear', shell=True)
 
 myFlipperInstructions = [
     {
