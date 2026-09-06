@@ -15,70 +15,70 @@ def frameAnimation(message, frames=4, speed=0.05):
 
 myFlipperInstructions = [
     {
-        "text": "Connect ESP32-S3 -> breadboard.",
+        "text": "Connect the ESP32-S3 to the breadboard.",
     },
     {
-        "text": "Connect Rotary Encoder -> breadboard.",
+        "text": "Connect the rotary encoder to the breadboard.",
     },
     {
-        "text": "Connect LCD Display -> breadboard.",
+        "text": "Connect the LCD display to the breadboard.",
     },
     {
-        "text": "Connect the items in a way that wont they interfere with each other.",
+        "text": "Arrange the components so they do not interfere with one another.",
     },
     {
-        "text": "Connect CS pin (LCD) -> GPIO 10 (ESP32-S3) via cable.",
+        "text": "Connect the LCD CS pin to ESP32-S3 GPIO 10.",
     },
     {
-        "text": "Connect RSE pin (LCD) -> GPIO 11 (ESP32-S3) via cable.",
+        "text": "Connect the LCD RSE pin to ESP32-S3 GPIO 11.",
     },
     {
-        "text": "Connect RS pin (LCD) -> GPIO 12 (ESP32-S3) via cable.",
+        "text": "Connect the LCD RS pin to ESP32-S3 GPIO 12.",
     },
     {
-        "text": "Connect SCL pin (LCD) -> GPIO 13 (ESP32-S3) via cable.",
+        "text": "Connect the LCD SCL pin to ESP32-S3 GPIO 13.",
     },
     {
-        "text": "Connect SI pin (LCD) -> GPIO 14 (ESP32-S3) via cable.",
+        "text": "Connect the LCD SI pin to ESP32-S3 GPIO 14.",
     },
     {
-        "text": "Connect VDD pin (LCD) -> Plus pin breadboard via cable.",
+        "text": "Connect the LCD VDD pin to the breadboard's positive power rail.",
     },
     {
-        "text": "Connect VSS pin (LCD) -> Minus pin breadboard via cable.",
+        "text": "Connect the LCD VSS pin to the breadboard's negative power rail.",
     },
     {
-        "text": "Connect A pin (LCD) -> Plus pin breadboard via cable.",
+        "text": "Connect the LCD A pin to the breadboard's positive power rail.",
     },
     {
-        "text": "Connect K pin (LCD) -> Minus pin breadboard via cable.",
+        "text": "Connect the LCD K pin to the breadboard's negative power rail.",
     },
     {
-        "text": "Connect 3v3 pin (ESP32-S3) -> Plus pin breadboard via cable.",
+        "text": "Connect the ESP32-S3 3V3 pin to the breadboard's positive power rail.",
     },
     {
-        "text": "Connect GND pin (ESP32-S3) -> Minus pin breadboard via cable.",
+        "text": "Connect the ESP32-S3 GND pin to the breadboard's negative power rail.",
     },
     {
-        "text": "Connect 5v pin (Rotary Encoder) -> Plus pin breadboard via cable.",
+        "text": "Connect the rotary encoder 5V pin to the breadboard's positive power rail.",
     },
     {
-        "text": "Connect GND pin (Rotary Encoder) -> Minus pin breadboard via cable.",
+        "text": "Connect the rotary encoder GND pin to the breadboard's negative power rail.",
     },
     {
-        "text": "Connect S1 pin (Rotary Encoder) -> GPIO 4 (ESP32-S3) via cable.",
+        "text": "Connect the rotary encoder S1 pin to ESP32-S3 GPIO 4.",
     },
     {
-        "text": "Connect S2 pin (Rotary Encoder) -> GPIO 5 (ESP32-S3) via cable.",
+        "text": "Connect the rotary encoder S2 pin to ESP32-S3 GPIO 5.",
     },
     {
-        "text": "Connect KEY pin (Rotary Encoder) -> GPIO 6 (ESP32-S3) via cable.",
+        "text": "Connect the rotary encoder KEY pin to ESP32-S3 GPIO 6.",
     },
     {
-        "text": "Make sure all connections are secure and correct before powering on the ESP32-S3.",
+        "text": "Verify every connection before powering on the ESP32-S3.",
     },
     {
-        "text": "Connect the ESP32-S3 to your computer via USB.",
+        "text": "Connect the ESP32-S3 to your computer with a USB cable.",
     }
 ] 
 
