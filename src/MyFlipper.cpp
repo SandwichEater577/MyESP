@@ -15,6 +15,7 @@
 #define LCD_DC 12
 #define LCD_SCL 13
 #define LCD_SI 14
+
 #define BUTTON_UP 5
 #define BUTTON_LEFT 4
 #define BUTTON_DOWN 7
@@ -44,8 +45,86 @@ MenuItem firstLevelMenuItems[] = {
     {"Settings", 5},
 };
 
-void drawMenu()
+MenuItem subGHzMenuItems[] = {
+    {"Read Signal", 1},
+    {"Add Frequency", 2},
+    {"Saved Signals", 3},
+    {"Transmit Signal", 4},
+    {"Exit", 5},
+};
+
+MenuItem nfcMenuItems[] = {
+    {"Read Card", 1},
+    {"Emulate Card", 2},
+    {"Saved Cards", 3},
+    {"Exit", 4},
+};
+
+MenuItem infraRedMenuItems[] = {
+    {"Read Signal", 1},
+    {"Saved Signals", 2},
+    {"Transmit Signal", 3},
+    {"Exit", 4},
+};
+
+MenuItem gpioMenuItems[] = {
+    {"Read GPIO", 1},
+    {"Set GPIO", 2},
+    {"GPIO Tools", 3},
+    {"Exit", 4},
+};
+
+MenuItem settingsMenuItems[] = {
+    {"Display", 1},
+    {"Buttons", 2},
+    {"About", 3},
+    {"Exit", 4},
+};
+
+int currentSelectedMenuItem = 1;
+int menuCount = 5;
+int menuLevel = 0;
+int itemsCount = 0;
+
+void drawMenu(int a)
 {
+
+    MenuItem *items = firstLevelMenuItems;
+
+    switch (a)
+    {
+    case 0:
+        menuLevel = 0;
+        items = firstLevelMenuItems;
+        itemsCount = sizeof(firstLevelMenuItems) / sizeof(firstLevelMenuItems[0]);
+        break;
+    case 1:
+        menuLevel = 1;
+        items = subGHzMenuItems;
+        itemsCount = sizeof(subGHzMenuItems) / sizeof(subGHzMenuItems[0]);
+        break;
+    case 2:
+        menuLevel = 2;
+        items = nfcMenuItems;
+        itemsCount = sizeof(nfcMenuItems) / sizeof(nfcMenuItems[0]);
+        break;
+    case 3:
+        menuLevel = 3;
+        items = infraRedMenuItems;
+        itemsCount = sizeof(infraRedMenuItems) / sizeof(infraRedMenuItems[0]);
+        break;
+    case 4:
+        menuLevel = 4;
+        items = gpioMenuItems;
+        itemsCount = sizeof(gpioMenuItems) / sizeof(gpioMenuItems[0]);
+        break;
+    case 5:
+        menuLevel = 5;
+        items = settingsMenuItems;
+        itemsCount = sizeof(settingsMenuItems) / sizeof(settingsMenuItems[0]);
+        break;
+    }
+
     display.firstPage();
 
     do
@@ -55,14 +134,24 @@ void drawMenu()
         // Border around the screen
         display.drawFrame(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-        // Solid strip at the right edge
-        display.drawBox(124, 4, 0, SCREEN_HEIGHT);
-
         // Draw menu items
-        for (int i = 0; i < sizeof(firstLevelMenuItems) / sizeof(MenuItem); i++)
+        for (int i = 0; i < itemsCount; i++)
         {
-            display.setCursor(10, 15 + (i * 12));
-            display.print(firstLevelMenuItems[i].name);
+            switch (items[i].id == currentSelectedMenuItem)
+            {
+            case true:
+                display.setDrawColor(BLACK);
+                display.drawBox(5, 4 + (i * 12 - 1), SCREEN_WIDTH - 9, 11);
+                display.setDrawColor(WHITE);
+                break;
+            case false:
+                display.setDrawColor(BLACK);
+                display.drawFrame(5, 4 + (i * 12 - 1), SCREEN_WIDTH - 9, 11);
+                break;
+            }
+
+            display.setCursor(10, 12 + (i * 12));
+            display.print(items[i].name);
         }
     } while (display.nextPage());
 }
@@ -87,17 +176,81 @@ void setup()
 
 void loop()
 {
-    display.firstPage();
+    drawMenu(menuLevel);
 
-    do
+    while (true)
     {
-        display.setDrawColor(BLACK);
 
-        // Border around the screen
-        display.drawFrame(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        int lastButtonUPState = digitalRead(BUTTON_UP);
+        int lastButtonDOWNState = digitalRead(BUTTON_DOWN);
+        int lastButtonLEFTState = digitalRead(BUTTON_LEFT);
+        int lastButtonRIGHTState = digitalRead(BUTTON_RIGHT);
+        int lastButtonOKState = digitalRead(BUTTON_OK);
 
-        // Solid strip at the right edge
-        display.drawBox(124, 4, 0, SCREEN_HEIGHT);
-
-    } while (display.nextPage());
+        switch (lastButtonUPState)
+        {
+        case LOW:
+            switch (menuLevel)
+            {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                currentSelectedMenuItem = currentSelectedMenuItem > 1 ? currentSelectedMenuItem - 1 : menuCount;
+                drawMenu(menuLevel);
+                delay(200);
+                break;
+            }
+            break;
+        }
+        switch (lastButtonDOWNState)
+        {
+        case LOW:
+            switch (menuLevel)
+            {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                currentSelectedMenuItem = currentSelectedMenuItem < menuCount ? currentSelectedMenuItem + 1 : 1;
+                drawMenu(menuLevel);
+                delay(200);
+                break;
+            }
+            break;
+        }
+        switch (lastButtonLEFTState)
+        {
+        case LOW:
+            return;
+        }
+        switch (lastButtonRIGHTState)
+        {
+        case LOW:
+            return;
+        }
+        switch (lastButtonOKState)
+        {
+        case LOW:
+            switch (menuLevel)
+            {
+            case 0:
+                switch (currentSelectedMenuItem)
+                {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    drawMenu(currentSelectedMenuItem);
+                    break;
+                }
+                break;
+            }
+        }
+    }
 }
